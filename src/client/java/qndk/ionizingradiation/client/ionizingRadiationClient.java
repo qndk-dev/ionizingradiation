@@ -2,7 +2,7 @@ package qndk.ionizingradiation.client;
 
 import net.fabricmc.api.ClientModInitializer;
 
-public class IonizingRadiationClient implements ClientModInitializer {
+public class ionizingRadiationClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		// This entrypoint is suitable for setting up client-specific logic, such as rendering.
