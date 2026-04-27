@@ -1,3 +1,3 @@
-# Lonizing Radiation
+# Ionizing Radiation
 
 ### In progress...
