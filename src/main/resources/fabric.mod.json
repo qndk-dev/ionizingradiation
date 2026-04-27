@@ -1,0 +1,41 @@
+{
+	"schemaVersion": 1,
+	"id": "lonizingradiation",
+	"version": "${version}",
+	"name": "Lonizing Radiation",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"Me!"
+	],
+	"contact": {
+		"homepage": "https://fabricmc.net/",
+		"sources": "https://github.com/FabricMC/fabric-example-mod"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/lonizingradiation/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"qndk.lonizingradiation.LonizingRadiation"
+		],
+		"client": [
+			"qndk.lonizingradiation.client.LonizingRadiationClient"
+		],
+		"fabric-datagen": [
+			"qndk.lonizingradiation.client.LonizingRadiationDataGenerator"
+		]
+	},
+	"mixins": [
+		"lonizingradiation.mixins.json",
+		{
+			"config": "lonizingradiation.client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=0.19.2",
+		"minecraft": "~1.21.11",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}
