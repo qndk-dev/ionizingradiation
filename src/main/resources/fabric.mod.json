@@ -1,28 +1,28 @@
 {
   "schemaVersion": 1,
-  "id": "lonizingradiation",
+  "id": "ionizingradiation",
   "version": "${version}",
-  "name": "Lonizing Radiation",
+  "name": "Ionizing Radiation",
   "description": "Radiation Mod",
   "authors": ["qndk"],
   "contact": {
-    "sources": "https://github.com/qndk-dev/lonizingradiation",
+    "sources": "https://github.com/qndk-dev/ionizingradiation",
     "discord": "https://discord.gg/QJZrPhNQPP"
   },
   "license": "GNU General Public License v3.0",
   "icon": "assets/lonizingradiation/icon.png",
   "environment": "*",
   "entrypoints": {
-    "main": ["qndk.lonizingradiation.LonizingRadiation"],
-    "client": ["qndk.lonizingradiation.client.LonizingRadiationClient"],
+    "main": ["qndk.ionizingradiation.IonizingRadiation"],
+    "client": ["qndk.ionizingradiation.client.IonizingRadiationClient"],
     "fabric-datagen": [
-      "qndk.lonizingradiation.client.LonizingRadiationDataGenerator"
+      "qndk.ionizingradiation.client.IonizingRadiationDataGenerator"
     ]
   },
   "mixins": [
-    "lonizingradiation.mixins.json",
+    "ionizingradiation.mixins.json",
     {
-      "config": "lonizingradiation.client.mixins.json",
+      "config": "ionizingradiation.client.mixins.json",
       "environment": "client"
     }
   ],

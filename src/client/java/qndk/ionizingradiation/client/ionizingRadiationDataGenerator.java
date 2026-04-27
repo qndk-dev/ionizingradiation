@@ -1,9 +1,9 @@
-package qndk.lonizingradiation.client;
+package qndk.ionizingradiation.client;
 
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 
-public class LonizingRadiationDataGenerator implements DataGeneratorEntrypoint {
+public class IonizingRadiationDataGenerator implements DataGeneratorEntrypoint {
 	@Override
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
 

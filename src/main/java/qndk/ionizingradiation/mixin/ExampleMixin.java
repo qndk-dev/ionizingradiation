@@ -1,4 +1,4 @@
-package qndk.lonizingradiation.mixin;
+package qndk.ionizingradiation.mixin;
 
 import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;
