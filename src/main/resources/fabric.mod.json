@@ -10,22 +10,10 @@
     "discord": "https://discord.gg/QJZrPhNQPP"
   },
   "license": "GNU General Public License v3.0",
-  "icon": "assets/lonizingradiation/icon.png",
   "environment": "*",
   "entrypoints": {
-    "main": ["qndk.ionizingradiation.IonizingRadiation"],
-    "client": ["qndk.ionizingradiation.client.IonizingRadiationClient"],
-    "fabric-datagen": [
-      "qndk.ionizingradiation.client.IonizingRadiationDataGenerator"
-    ]
+    "main": ["qndk.ionizingradiation.ionizingRadiation"]
   },
-  "mixins": [
-    "ionizingradiation.mixins.json",
-    {
-      "config": "ionizingradiation.client.mixins.json",
-      "environment": "client"
-    }
-  ],
   "depends": {
     "fabricloader": ">=0.19.2",
     "minecraft": "~1.21.11",
