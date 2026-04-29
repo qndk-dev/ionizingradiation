@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import qndk.ionizingradiation.radiationSystem.radiationRegistry;
 import qndk.ionizingradiation.radiationSystem.radiationTicker;
 import qndk.ionizingradiation.radiationSystem.radiationCommands;
+import qndk.ionizingradiation.radiationItems.radiationItems;
 
 public class ionizingRadiation implements ModInitializer {
 	public static final String MOD_ID = "ionizingradiation";
@@ -21,10 +22,13 @@ public class ionizingRadiation implements ModInitializer {
 
 		LOGGER.info("Чем гуще в лес, тем... if else if else");
 
-		// Registers
+		// Initialization and Registers
 		radiationRegistry.register();
 		radiationTicker.register();
 		radiationCommands.register();
+		LOGGER.info("Initialized Radiation (1/2)");
+		radiationItems.register();
+		LOGGER.info("Initialized Items (2/2)");
 
 		LOGGER.info("Iozing Radiation by qndk has been initialized!");
 	}
