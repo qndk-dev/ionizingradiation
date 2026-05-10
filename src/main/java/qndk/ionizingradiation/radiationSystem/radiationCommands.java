@@ -1,7 +1,9 @@
 package qndk.ionizingradiation.radiationSystem;
 
 import com.mojang.brigadier.arguments.FloatArgumentType;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 
@@ -17,8 +19,9 @@ public class radiationCommands {
                             .executes(ctx -> {
                                 ServerPlayer player = ctx.getSource().getPlayerOrException();
                                 float rad = radiationManager.getRadiation(player);
+                                float zoneRad = radiationWorldManager.getRadiationAt(player.blockPosition());
                                 ctx.getSource().sendSuccess(
-                                        () -> Component.literal("Радиация: " + rad + " мЗв"),
+                                        () -> Component.literal("Доза: " + String.format("%.2f", rad) + " мЗв | Зона: " + String.format("%.2f", zoneRad) + " мЗв/с"),
                                         false
                                 );
                                 return 1;
@@ -31,11 +34,33 @@ public class radiationCommands {
                                         float amount = FloatArgumentType.getFloat(ctx, "amount");
                                         radiationManager.setRadiation(player, amount);
                                         ctx.getSource().sendSuccess(
-                                                () -> Component.literal("Радиация установлена: " + amount + " мЗв"),
+                                                () -> Component.literal("Доза установлена: " + amount + " мЗв"),
                                                 false
                                         );
                                         return 1;
                                     })
+                            )
+                    )
+                    .then(literal("zone")
+                            .then(literal("create")
+                                    .then(argument("level", FloatArgumentType.floatArg(0))
+                                            .then(argument("radius", IntegerArgumentType.integer(1))
+                                                    .then(argument("halfLife", FloatArgumentType.floatArg(1))
+                                                            .executes(ctx -> {
+                                                                ServerPlayer player = ctx.getSource().getPlayerOrException();
+                                                                float level = FloatArgumentType.getFloat(ctx, "level");
+                                                                int radius = IntegerArgumentType.getInteger(ctx, "radius");
+                                                                float halfLife = FloatArgumentType.getFloat(ctx, "halfLife");
+                                                                radiationWorldManager.addZone(player.blockPosition(), radius, level, halfLife);
+                                                                ctx.getSource().sendSuccess(
+                                                                        () -> Component.literal("Зона создана: " + level + " мЗв/с, радиус " + radius + ", полураспад " + halfLife + "с"),
+                                                                        false
+                                                                );
+                                                                return 1;
+                                                            })
+                                                    )
+                                            )
+                                    )
                             )
                     )
             );

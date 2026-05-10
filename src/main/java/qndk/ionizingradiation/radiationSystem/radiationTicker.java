@@ -1,12 +1,12 @@
 package qndk.ionizingradiation.radiationSystem;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
 
 public class radiationTicker {
 
@@ -18,7 +18,10 @@ public class radiationTicker {
 
     private static void onServerTick(MinecraftServer server) {
         tickCounter++;
-        if (tickCounter % 20 != 0) return; // каждую секунду
+        if (tickCounter % 20 != 0) return;
+
+        radiationWorldManager.tick();
+        radiationWorldManager.applyToPlayers(server.getPlayerList().getPlayers());
 
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
             float radiation = radiationManager.getRadiation(player);
@@ -44,7 +47,6 @@ public class radiationTicker {
 
     private static void decayRadiation(ServerPlayer player, float radiation) {
         if (radiation <= 0) return;
-        // ~0.1% в секунду естественный распад
         float decayed = radiation * 0.999f;
         radiationManager.setRadiation(player, decayed);
     }
