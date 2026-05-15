@@ -39,7 +39,17 @@ public class radiationWorldManager {
         }
     }
 
+    public static float getHalfLifeAt(BlockPos pos) {
+        for (radiationZone zone : zones) {
+            if (zone.isInZone(pos)) {
+                return zone.halfLife;
+            }
+        }
+        return 0;
+    }
+
     public static List<radiationZone> getZones() {
         return zones;
     }
 }
+

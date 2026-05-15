@@ -34,7 +34,7 @@ public class radiationTicker {
         Holder<MobEffect> effect = BuiltInRegistries.MOB_EFFECT.wrapAsHolder(radiationRegistry.RADIATION);
 
         if (radiation >= 4000) {
-            player.hurt(player.damageSources().magic(), 1.0f);
+            player.hurtServer(player.level(), player.damageSources().magic(), 1.0f);
             player.addEffect(new MobEffectInstance(effect, 40, 2));
         } else if (radiation >= 2000) {
             player.addEffect(new MobEffectInstance(effect, 40, 2));

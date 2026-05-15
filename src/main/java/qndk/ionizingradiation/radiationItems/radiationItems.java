@@ -17,5 +17,13 @@ public class radiationItems {
             ))
     );
 
+    public static final Item GEIGER_COUNTER = Registry.register(
+            BuiltInRegistries.ITEM,
+            Identifier.fromNamespaceAndPath("ionizingradiation", "geiger_counter"),
+            new geigerCounter(new Item.Properties().setId(
+                    ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("ionizingradiation", "geiger_counter"))
+            ))
+    );
+
     public static void register() {}
 }
