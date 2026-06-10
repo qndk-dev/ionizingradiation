@@ -2,11 +2,13 @@ package qndk.ionizingradiation.radiationSystem;
 
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.core.Holder;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.level.biome.Biome;
 
 public class radiationTicker {
 
@@ -21,6 +23,7 @@ public class radiationTicker {
         if (tickCounter % 20 != 0) return;
 
         radiationWorldManager.tick();
+        addBiomeRadiationZones(server);
         radiationWorldManager.applyToPlayers(server.getPlayerList().getPlayers());
 
         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
@@ -28,6 +31,40 @@ public class radiationTicker {
             applyEffects(player, radiation);
             decayRadiation(player, radiation);
         }
+    }
+
+    private static void addBiomeRadiationZones(MinecraftServer server) {
+         for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+             net.minecraft.resources.ResourceKey<net.minecraft.world.level.Level> dimensionKey = player.level().dimension();
+
+             if (dimensionKey.equals(net.minecraft.world.level.Level.END)) {
+                 addRadiationZoneIfNotExists(player.blockPosition(), 50.0f);
+             }
+             else if (dimensionKey.equals(net.minecraft.world.level.Level.NETHER)) {
+                 Holder<Biome> biome = player.level().getBiome(player.blockPosition());
+                 var biomeKey = biome.unwrapKey();
+
+                 if (biomeKey.isPresent() && isBasaltDeltas(biomeKey.get())) {
+                     addRadiationZoneIfNotExists(player.blockPosition(), 75.0f);
+                 }
+             }
+         }
+     }
+
+     private static boolean isBasaltDeltas(net.minecraft.resources.ResourceKey<Biome> biomeKey) {
+         return biomeKey.toString().contains("basalt_deltas");
+     }
+
+    private static void addRadiationZoneIfNotExists(BlockPos center, float radiationLevel) {
+        final double ZONE_RADIUS = 256;
+        final float HALF_LIFE = 3600.0f;
+
+        for (radiationZone zone : radiationWorldManager.getZones()) {
+            if (zone.center.distSqr(center) <= (ZONE_RADIUS * ZONE_RADIUS)) {
+                return;
+            }
+        }
+        radiationWorldManager.addZone(center, ZONE_RADIUS, radiationLevel, HALF_LIFE);
     }
 
     private static void applyEffects(ServerPlayer player, float radiation) {
