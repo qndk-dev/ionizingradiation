@@ -1,4 +1,5 @@
 {
   "item.ionizingradiation.dosimeter": "Дозиметр",
-  "item.ionizingradiation.geiger_counter": "Счетчик Гейзера"
+  "item.ionizingradiation.geiger_counter": "Счетчик Гейзера",
+  "effect.ionizingradiation.radiation": "Радиация"
 }
