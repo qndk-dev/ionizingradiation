@@ -30,6 +30,6 @@ public class ionizingRadiation implements ModInitializer {
 		radiationItems.register();
 		LOGGER.info("Initialized Items (2/2)");
 
-		LOGGER.info("Iozing Radiation by qndk has been initialized!");
+		LOGGER.info("Ionizing Radiation by qndk has been initialized!");
 	}
 }
