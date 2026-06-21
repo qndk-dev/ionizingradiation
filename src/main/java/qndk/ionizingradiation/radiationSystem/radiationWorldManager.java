@@ -9,6 +9,12 @@ import java.util.List;
 public class radiationWorldManager {
     private static final List<radiationZone> zones = new ArrayList<>();
 
+    public static void setZones(List<radiationZone> newZones) {
+        zones.clear();
+        if (newZones != null) {
+            zones.addAll(newZones);
+        }
+    }
     public static void addZone(BlockPos center, double radius, float radiationLevel, float halfLife) {
         zones.add(new radiationZone(center, radius, radiationLevel, halfLife));
     }
