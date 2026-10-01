@@ -35,23 +35,29 @@ public class radiationWorldSavedData {
             for (String line : lines) {
                 if (line == null || line.isBlank()) continue;
                 String[] parts = line.split(",");
-                if (parts.length < 6) continue;
-                int x = Integer.parseInt(parts[0]);
-                int y = Integer.parseInt(parts[1]);
-                int z = Integer.parseInt(parts[2]);
-                double radius = Double.parseDouble(parts[3]);
-                float radiationLevel = Float.parseFloat(parts[4]);
-                float halfLife = Float.parseFloat(parts[5]);
+                if (parts.length < 7) continue;
+                ResourceKey<Level> dim = ResourceKey.create(Registries.DIMENSION,
+                    new net.minecraft.resources.ResourceLocation(parts[1]));
+                int x = Integer.parseInt(parts[2]);
+                int y = Integer.parseInt(parts[3]);
+                int z = Integer.parseInt(parts[4]);
+                double radius = Double.parseDouble(parts[5]);
+                float radiationLevel = Float.parseFloat(parts[6]);
+                float halfLife = Float.parseFloat(parts[7]);
                 loaded.add(
                     new radiationZone(
                         new BlockPos(x, y, z),
+                        world.dimension(),
                         radius,
                         radiationLevel,
                         halfLife
                     )
                 );
             }
-            radiationWorldManager.setZones(loaded);
+            List<radiationZone> filtered = loaded.stream()
+                .filter(z -> z.dimension.equals(world.dimension()))
+                .toList();
+            radiationWorldManager.setZones(filtered);
         } catch (IOException | NumberFormatException e) {}
     }
 
@@ -62,8 +68,11 @@ public class radiationWorldSavedData {
             Path file = dir.resolve(worldId(world) + "_zones.dat");
             List<String> lines = new ArrayList<>();
             for (radiationZone zone : radiationWorldManager.getZones()) {
+                if (!zone.dimension.equals(world.dimension())) continue;
                 StringBuilder sb = new StringBuilder();
                 sb.append(zone.center.getX())
+                    .append(',')
+                    .append(zone.dimension.toString())
                     .append(',')
                     .append(zone.center.getY())
                     .append(',')
