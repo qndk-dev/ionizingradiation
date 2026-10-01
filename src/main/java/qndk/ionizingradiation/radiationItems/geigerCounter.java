@@ -15,20 +15,33 @@ public class geigerCounter extends Item {
     }
 
     @Override
-    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(
+        Level level,
+        Player player,
+        InteractionHand hand
+    ) {
         if (!level.isClientSide()) {
-            float zoneRad = radiationWorldManager.getRadiationAt(player.blockPosition());
-            float halfLife = radiationWorldManager.getHalfLifeAt(player.blockPosition());
+            float zoneRad = radiationWorldManager.getRadiationAt(
+                player.blockPosition()
+            );
+            float halfLife = radiationWorldManager.getHalfLifeAt(
+                player.blockPosition()
+            );
 
             if (zoneRad <= 0) {
                 player.displayClientMessage(
-                        Component.literal("Радиация: 0.00 мЗв/с - чисто"),
-                        true
+                    Component.literal("Радиация: 0.00 мЗв/с - чисто"),
+                    true
                 );
             } else {
                 player.displayClientMessage(
-                        Component.literal(String.format("%.2f", zoneRad) + " мЗв/с | T½: " + String.format("%.1f", halfLife) + "с"),
-                        true
+                    Component.literal(
+                        String.format("%.2f", zoneRad) +
+                            " мЗв/с | T½: " +
+                            String.format("%.1f", halfLife) +
+                            "с"
+                    ),
+                    true
                 );
             }
         }

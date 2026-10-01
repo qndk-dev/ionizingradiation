@@ -3,12 +3,18 @@ package qndk.ionizingradiation.radiationSystem;
 import net.minecraft.core.BlockPos;
 
 public class radiationZone {
+
     public final BlockPos center;
     public final double radius;
     public float radiationLevel; // мЗв/с
-    public float halfLife;       // с
+    public float halfLife; // с
 
-    public radiationZone(BlockPos center, double radius, float radiationLevel, float halfLife) {
+    public radiationZone(
+        BlockPos center,
+        double radius,
+        float radiationLevel,
+        float halfLife
+    ) {
         this.center = center;
         this.radius = radius;
         this.radiationLevel = radiationLevel;

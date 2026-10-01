@@ -10,19 +10,35 @@ import net.minecraft.world.item.Item;
 public class radiationItems {
 
     public static final Item DOSIMETER = Registry.register(
-            BuiltInRegistries.ITEM,
-            Identifier.fromNamespaceAndPath("ionizingradiation", "dosimeter"),
-            new dosimeter(new Item.Properties().setId(
-                    ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("ionizingradiation", "dosimeter"))
-            ))
+        BuiltInRegistries.ITEM,
+        Identifier.fromNamespaceAndPath("ionizingradiation", "dosimeter"),
+        new dosimeter(
+            new Item.Properties().setId(
+                ResourceKey.create(
+                    Registries.ITEM,
+                    Identifier.fromNamespaceAndPath(
+                        "ionizingradiation",
+                        "dosimeter"
+                    )
+                )
+            )
+        )
     );
 
     public static final Item GEIGER_COUNTER = Registry.register(
-            BuiltInRegistries.ITEM,
-            Identifier.fromNamespaceAndPath("ionizingradiation", "geiger_counter"),
-            new geigerCounter(new Item.Properties().setId(
-                    ResourceKey.create(Registries.ITEM, Identifier.fromNamespaceAndPath("ionizingradiation", "geiger_counter"))
-            ))
+        BuiltInRegistries.ITEM,
+        Identifier.fromNamespaceAndPath("ionizingradiation", "geiger_counter"),
+        new geigerCounter(
+            new Item.Properties().setId(
+                ResourceKey.create(
+                    Registries.ITEM,
+                    Identifier.fromNamespaceAndPath(
+                        "ionizingradiation",
+                        "geiger_counter"
+                    )
+                )
+            )
+        )
     );
 
     public static void register() {}

@@ -1,12 +1,12 @@
 package qndk.ionizingradiation.radiationSystem;
 
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class radiationWorldManager {
+
     private static final List<radiationZone> zones = new ArrayList<>();
 
     public static void setZones(List<radiationZone> newZones) {
@@ -15,7 +15,13 @@ public class radiationWorldManager {
             zones.addAll(newZones);
         }
     }
-    public static void addZone(BlockPos center, double radius, float radiationLevel, float halfLife) {
+
+    public static void addZone(
+        BlockPos center,
+        double radius,
+        float radiationLevel,
+        float halfLife
+    ) {
         zones.add(new radiationZone(center, radius, radiationLevel, halfLife));
     }
 
@@ -58,4 +64,3 @@ public class radiationWorldManager {
         return zones;
     }
 }
-

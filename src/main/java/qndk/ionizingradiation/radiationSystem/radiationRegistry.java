@@ -6,10 +6,11 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.world.effect.MobEffect;
 
 public class radiationRegistry {
+
     public static final MobEffect RADIATION = Registry.register(
-            BuiltInRegistries.MOB_EFFECT,
-            Identifier.fromNamespaceAndPath("ionizingradiation", "radiation"),
-            new radiationEffect()
+        BuiltInRegistries.MOB_EFFECT,
+        Identifier.fromNamespaceAndPath("ionizingradiation", "radiation"),
+        new radiationEffect()
     );
 
     public static void register() {}
