@@ -7,8 +7,11 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.Level;
 
 public class radiationWorldSavedData {
 
@@ -36,8 +39,9 @@ public class radiationWorldSavedData {
                 if (line == null || line.isBlank()) continue;
                 String[] parts = line.split(",");
                 if (parts.length < 7) continue;
-                ResourceKey<Level> dim = ResourceKey.create(Registries.DIMENSION,
-                    new net.minecraft.resources.ResourceLocation(parts[1]));
+                String dimStr = parts[1];
+                net.minecraft.resources.Identifier id = net.minecraft.resources.Identifier.parse(dimStr);
+                ResourceKey<Level> dim = ResourceKey.create(Registries.DIMENSION, id);
                 int x = Integer.parseInt(parts[2]);
                 int y = Integer.parseInt(parts[3]);
                 int z = Integer.parseInt(parts[4]);
@@ -47,14 +51,15 @@ public class radiationWorldSavedData {
                 loaded.add(
                     new radiationZone(
                         new BlockPos(x, y, z),
-                        world.dimension(),
+                        dim,
                         radius,
                         radiationLevel,
                         halfLife
                     )
                 );
             }
-            List<radiationZone> filtered = loaded.stream()
+            List<radiationZone> filtered = loaded
+                .stream()
                 .filter(z -> z.dimension.equals(world.dimension()))
                 .toList();
             radiationWorldManager.setZones(filtered);

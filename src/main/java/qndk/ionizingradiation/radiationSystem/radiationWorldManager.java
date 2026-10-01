@@ -22,7 +22,7 @@ public class radiationWorldManager {
         float radiationLevel,
         float halfLife
     ) {
-        zones.add(new radiationZone(center, radius, radiationLevel, halfLife));
+        zones.add(new radiationZone(center, null, radius, radiationLevel, halfLife));
     }
 
     public static float getRadiationAt(BlockPos pos) {
